@@ -1,0 +1,57 @@
+\newcommand{\enter}{\ \\ \ \\}
+
+\newcommand{\ch}{\Checkmark}
+
+\newcommand{\asesores}[3]{
+	\centering
+    \begin{paracol}{3}
+    	\textcolor{asVerde}{
+          Asesor verde \\
+          #1
+        }
+        
+        \switchcolumn
+        
+        \textcolor{asAzul}{
+          Asesor azul \\
+          #2
+        }
+        
+        \switchcolumn
+        
+        \textcolor{asRojo}{
+          Asesor rojo \\
+          #3
+        }
+    \end{paracol}
+}
+
+\newcommand{\festejado}[1]{
+	{
+        \centering
+        \LARGE{\bf{Club vida plena para emprendedores}}
+        %\\
+        \begin{paracol}{3}
+        	\begin{figure}
+            	\centering
+                \includegraphics[scale=0.25]{unLogo}
+            \end{figure}
+            
+            \switchcolumn
+            
+            \ \\
+        	\Large{\bf{\it{-- F I E S T A --}}}
+            \\
+            \large{\textsc{ \textcolor{fest}{#1} }}
+            \\
+            \today
+            
+            \switchcolumn
+            
+            \begin{figure}[ht]
+            	\centering
+                \includegraphics[scale=0.25]{unLogo}
+            \end{figure}
+        \end{paracol}
+    }
+}

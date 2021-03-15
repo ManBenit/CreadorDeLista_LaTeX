@@ -4,22 +4,27 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class DataReader {
-    private void loadNames(){
-        
+    private LinkedList<String> names;
+    
+    public DataReader(){
+        names= new LinkedList();
     }
     
-    private String adaptarRuta(String ruta){
-        if(System.getProperty("os.name").equals("Windows"))
-            return ruta.replace("/", "\\");
-        else
-            return ruta;
+    public void read(){
+        readFile(select("txt"));
     }
     
-    public String readFile(File archivo){
+    public LinkedList<String> getList(){
+        return names;
+    }
+    
+    //Read guest list file (.txt)
+    private String readFile(File archivo){
         StringBuilder ret= new StringBuilder("");
         try{
             BufferedReader br= new BufferedReader(new FileReader(archivo));
@@ -28,21 +33,22 @@ public class DataReader {
             str= br.readLine();
             ret.append(str);
             while((str= br.readLine()) != null)
-                ret.append(str).append("\n");
+                names.add(str);
             
             br.close();
         } catch (IOException ex) {
-            System.out.println("Error al leer el archivo");
+            System.out.println("Error al leer el archivo:\n"+ex.getMessage());
         }
         
         return ret.toString();
     }
     
-    public File select(String filter){
+    private File select(String filter){
+        JFileChooser jfchooser= new JFileChooser();
         FileNameExtensionFilter filtro= null;
         if(filter!=null)
             filtro= new FileNameExtensionFilter("Specific file (."+filter+")", filter);
-        JFileChooser jfchooser= new JFileChooser();
+        
         jfchooser.setFileSelectionMode(JFileChooser.FILES_ONLY); //¿Qué se puede seleccionar?
         if(filter!=null)
             jfchooser.setFileFilter(filtro);
