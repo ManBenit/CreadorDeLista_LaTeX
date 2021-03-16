@@ -24,21 +24,21 @@ public class DataWriter {
         initMainTex.append("\\justifying\n");
         initMainTex.append("\\begin{paracol}{2}\n");
         initMainTex.append("\\section*{Capitalizadores}\n");
-        initMainTex.append("\\begin{itemize}\n");
+        initMainTex.append("\\begin{enumerate}\n");
         for(String s: caps)
             initMainTex.append("\\item ").append(s).append("\n");
-        initMainTex.append("\\end{itemize}\n");
+        initMainTex.append("\\end{enumerate}\n");
         initMainTex.append("\\switchcolumn\n");
         initMainTex.append("\\section*{Equipo}\n");
-        initMainTex.append("\\begin{itemize}\n");
+        initMainTex.append("\\begin{enumerate}\n");
         for(String s: team)
             initMainTex.append("\\item ").append(s).append("\n");
-        initMainTex.append("\\end{itemize}\n");
+        initMainTex.append("\\end{enumerate}\n");
         initMainTex.append("\\end{paracol}\n");
         
         if(!guests.isEmpty()){
             int counter=0;
-            initMainTex.append("\\section*{Invitados}\n");
+            initMainTex.append("\\section*{Invitados (").append(guests.size()).append(" en lista)}\n");
             initMainTex.append("\\begin{paracol}{2}\n");
             initMainTex.append("\\begin{itemize}\n");
             if(guests.size()>20){ //Si es mayor a 20,
@@ -66,8 +66,7 @@ public class DataWriter {
         initMainTex.append("\\end{document}\n");
     }
     
-    public void write(String path){
-        //writeFile(new File(path+"Lista"+fest.trim()), initMainTex.toString(), false);
+    public void write(){
         writeFile(new File(".."+System.getProperty("file.separator")+"Document"+System.getProperty("file.separator")+"Main.tex"), initMainTex.toString(), false);
     }
     

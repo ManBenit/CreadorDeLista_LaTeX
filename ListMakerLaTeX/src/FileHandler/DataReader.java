@@ -10,28 +10,27 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class DataReader {
     private LinkedList<String> names;
+    private String selectedFilePath;
     
-    public DataReader(){
+    public DataReader(String title){
         names= new LinkedList();
-    }
-    
-    public void read(){
-        readFile(select("txt"));
+        readFile(select("txt", title));
     }
     
     public LinkedList<String> getList(){
         return names;
     }
     
+    public String getPath(){
+        return selectedFilePath;
+    }
+    
     //Read guest list file (.txt)
-    private String readFile(File archivo){
-        StringBuilder ret= new StringBuilder("");
+    private void readFile(File archivo){
         try{
             BufferedReader br= new BufferedReader(new FileReader(archivo));
             
             String str;
-            str= br.readLine();
-            ret.append(str);
             while((str= br.readLine()) != null)
                 names.add(str);
             
@@ -39,12 +38,11 @@ public class DataReader {
         } catch (IOException ex) {
             System.out.println("Error al leer el archivo:\n"+ex.getMessage());
         }
-        
-        return ret.toString();
     }
     
-    private File select(String filter){
+    private File select(String filter, String title){
         JFileChooser jfchooser= new JFileChooser();
+        jfchooser.setDialogTitle(title);
         FileNameExtensionFilter filtro= null;
         if(filter!=null)
             filtro= new FileNameExtensionFilter("Specific file (."+filter+")", filter);
@@ -53,7 +51,13 @@ public class DataReader {
         if(filter!=null)
             jfchooser.setFileFilter(filtro);
         jfchooser.showOpenDialog(jfchooser);
-
+        
+        try{
+            selectedFilePath= jfchooser.getSelectedFile().getCanonicalPath();
+        }catch(IOException ex){
+            System.out.println("Error al obtener la ruta canónica\n"+ex.getMessage());
+        }
+            
         return jfchooser.getSelectedFile();
     }
 }
