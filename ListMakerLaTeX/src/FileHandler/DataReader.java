@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -17,8 +19,11 @@ public class DataReader {
         readFile(select("txt", title));
     }
     
-    public LinkedList<String> getList(){
-        return names;
+    public List<String> getList(){
+        //Order by alphabet
+        List<String> sortedNames = names.stream().sorted().collect(Collectors.toList());
+        
+        return sortedNames;
     }
     
     public String getPath(){
@@ -31,13 +36,34 @@ public class DataReader {
             BufferedReader br= new BufferedReader(new FileReader(archivo));
             
             String str;
-            while((str= br.readLine()) != null)
+            while((str= br.readLine()) != null){
+                str= capitalFormat(str);
                 names.add(str);
+            }
             
             br.close();
         } catch (IOException ex) {
             System.out.println("Error al leer el archivo:\n"+ex.getMessage());
         }
+    }
+    
+    private String capitalFormat(String name){
+        StringBuilder sb= new StringBuilder("");
+        String[] namePart= name.split(" ");
+        
+        StringBuilder partAnalyze;
+        for(String np: namePart){
+            if(!np.equalsIgnoreCase("de") && !np.equalsIgnoreCase("del") && !np.equalsIgnoreCase("la") && !np.equalsIgnoreCase("las") && !np.equalsIgnoreCase("los")){
+                partAnalyze= new StringBuilder(np.toLowerCase());
+                partAnalyze.replace(0, 1, String.valueOf(partAnalyze.charAt(0)).toUpperCase());
+                partAnalyze.append(" ");
+                sb.append(partAnalyze.toString()).append(" ");
+            }
+            else{
+                sb.append(np.toLowerCase()).append(" ");
+            }
+        }
+        return sb.toString();
     }
     
     private File select(String filter, String title){

@@ -5,12 +5,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
 
 public class DataWriter {
     private StringBuilder initMainTex= new StringBuilder("");
     private String fest;
     
-    public DataWriter(String fest, String greenAd, String blueAd, String redAd, LinkedList<String> caps, LinkedList<String> team, LinkedList<String> guests){
+    public DataWriter(String fest, String greenAd, String blueAd, String redAd, List<String> caps, List<String> team, List<String> guests){
         this.fest= fest;
         initMainTex.append("\\input{Preambulo.tex}\n");
         initMainTex.append("\\begin{document}\n");
@@ -23,7 +24,7 @@ public class DataWriter {
         initMainTex.append("\\ \\\\ \n");
         initMainTex.append("\\justifying\n");
         initMainTex.append("\\begin{paracol}{2}\n");
-        initMainTex.append("\\section*{Capitalizadores}\n");
+        initMainTex.append("\\section*{Fase amarilla}\n");
         initMainTex.append("\\begin{enumerate}\n");
         for(String s: caps)
             initMainTex.append("\\item ").append(s).append("\n");

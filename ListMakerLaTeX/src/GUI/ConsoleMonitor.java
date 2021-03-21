@@ -9,7 +9,7 @@ public class ConsoleMonitor extends JDialog {
         super(parent, modal);
         setTitle("Salida de la consola");
         initComponents();
-        taConsoleOutput.setEnabled(false);
+        taConsoleOutput.setEditable(false);
         taConsoleOutput.setText(consoleOutput);
     }
 

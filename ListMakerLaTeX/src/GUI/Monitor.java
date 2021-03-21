@@ -3,23 +3,31 @@ package GUI;
 import FileHandler.DataReader;
 import FileHandler.DataWriter;
 import FileHandler.PDFMaker;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JFrame;
 
 public class Monitor extends JFrame implements ActionListener{
-    private LinkedList<String> inv=null, cap=null, eq=null;
+    private List<String> inv=null, cap=null, eq=null;
     private String consOut="";
 
     public Monitor() {
         setTitle("Creador de listas para fiesta");
         initComponents();
         listeners();
+        lbV.setOpaque(true);
+        lbA.setOpaque(true);
+        lbR.setOpaque(true);
+        lbV.setBackground(Color.green);
+        lbA.setBackground(Color.blue);
+        lbR.setBackground(Color.red);
         setImage(lbLogo, ".."+System.getProperty("file.separator")+"Document"+System.getProperty("file.separator")+"unLogo.PNG");
     }
 
@@ -34,6 +42,9 @@ public class Monitor extends JFrame implements ActionListener{
         lbPathEq = new javax.swing.JLabel();
         btnCcap = new javax.swing.JButton();
         lbPathCap = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         tfFest = new javax.swing.JTextField();
         tfAsv = new javax.swing.JTextField();
@@ -43,6 +54,9 @@ public class Monitor extends JFrame implements ActionListener{
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        lbV = new javax.swing.JLabel();
+        lbA = new javax.swing.JLabel();
+        lbR = new javax.swing.JLabel();
         lbLogo = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnCrear = new javax.swing.JButton();
@@ -69,6 +83,12 @@ public class Monitor extends JFrame implements ActionListener{
 
         lbPathCap.setText("Archivo de capitalizadores");
 
+        jLabel5.setText("Invitados");
+
+        jLabel6.setText("Equipo");
+
+        jLabel7.setText("Capitalizadores");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -87,25 +107,36 @@ public class Monitor extends JFrame implements ActionListener{
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnCeq)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbPathEq, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)))
+                        .addComponent(lbPathEq, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addComponent(jLabel5)
+                .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbPathInv)
                     .addComponent(btnCinv))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCeq)
                     .addComponent(lbPathEq))
                 .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addGap(4, 4, 4)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCcap)
                     .addComponent(lbPathCap))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jLabel1.setText("Festejado:");
@@ -120,8 +151,13 @@ public class Monitor extends JFrame implements ActionListener{
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbA, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addComponent(lbR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -140,7 +176,7 @@ public class Monitor extends JFrame implements ActionListener{
                             .addComponent(jLabel3)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(tfAsa, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,17 +186,22 @@ public class Monitor extends JFrame implements ActionListener{
                     .addComponent(jLabel1)
                     .addComponent(tfFest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(tfAsv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lbV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(tfAsv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(7, 7, 7)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(tfAsa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(tfAsa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(tfAsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfAsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbR, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -278,10 +319,10 @@ public class Monitor extends JFrame implements ActionListener{
         
             lbEdoPrim.setText("Creando PDF, espere...");
             lbEdoSec.setText("COMPILACIÓN");
-            new DataWriter(tfFest.getText(),
-                    tfAsv.getText(),
-                    tfAsa.getText(), 
-                    tfAsr.getText(), 
+            new DataWriter(capitalFormat(tfFest.getText()),
+                    capitalFormat(tfAsv.getText()),
+                    capitalFormat(tfAsa.getText()), 
+                    capitalFormat(tfAsr.getText()), 
                     cap, eq, inv).write();
 
             lbEdoSec.setText("EXPORTACIÓN");
@@ -322,18 +363,24 @@ public class Monitor extends JFrame implements ActionListener{
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lbA;
     private javax.swing.JLabel lbEdoPrim;
     private javax.swing.JLabel lbEdoSec;
     private javax.swing.JLabel lbLogo;
     private javax.swing.JLabel lbPathCap;
     private javax.swing.JLabel lbPathEq;
     private javax.swing.JLabel lbPathInv;
+    private javax.swing.JLabel lbR;
+    private javax.swing.JLabel lbV;
     private javax.swing.JMenuItem miNuevaLista;
     private javax.swing.JMenuItem miSalidaConsola;
     private javax.swing.JMenuItem miSalir;
@@ -357,5 +404,24 @@ public class Monitor extends JFrame implements ActionListener{
         miNuevaLista.addActionListener(this);
         miSalidaConsola.addActionListener(this);
         miSalir.addActionListener(this);
+    }
+    
+    private String capitalFormat(String name){
+        StringBuilder sb= new StringBuilder("");
+        String[] namePart= name.split(" ");
+        
+        StringBuilder partAnalyze;
+        for(String np: namePart){
+            if(!np.equalsIgnoreCase("de") && !np.equalsIgnoreCase("del") && !np.equalsIgnoreCase("la") && !np.equalsIgnoreCase("las") && !np.equalsIgnoreCase("los")){
+                partAnalyze= new StringBuilder(np.toLowerCase());
+                partAnalyze.replace(0, 1, String.valueOf(partAnalyze.charAt(0)).toUpperCase());
+                partAnalyze.append(" ");
+                sb.append(partAnalyze.toString()).append(" ");
+            }
+            else{
+                sb.append(np.toLowerCase()).append(" ");
+            }
+        }
+        return sb.toString();
     }
 }
